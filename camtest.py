@@ -1,10 +1,11 @@
-from picamera2 import Picamera2
+import subprocess
 from time import sleep
 
-picam2 = Picamera2()
-picam2.configure(picam2.create_still_configuration())
-picam2.start()
-sleep(2)  # Zeit geben, bis Kamera bereit ist
+# Hier wäre normalerweise der Start/Initialisierung; bei libcamera-still nicht direkt nötig
 
-picam2.capture_file("test.jpg")
+sleep(2)  # Wartezeit, die Kamera bereit ist
+
+# Führt den Befehl aus, um das Bild aufzunehmen
+subprocess.run(["libcamera-still", "-o", "test.jpg"])
+
 print("✅ Bild gespeichert als test.jpg")
