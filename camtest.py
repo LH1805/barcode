@@ -1,14 +1,10 @@
-import cv2
+from picamera2 import Picamera2
+from time import sleep
 
-print("Starte Kamera...")
-cap = cv2.VideoCapture(0)
-ret, frame = cap.read()
+picam2 = Picamera2()
+picam2.configure(picam2.create_still_configuration())
+picam2.start()
+sleep(2)  # Zeit geben, bis Kamera bereit ist
 
-if not ret:
-    print("❌ Fehler: Kein Bild erhalten")
-else:
-    print("✅ Bild erfasst, speichere als test.jpg")
-    cv2.imwrite("test.jpg", frame)
-
-cap.release()
-print("Fertig.")
+picam2.capture_file("test.jpg")
+print("✅ Bild gespeichert als test.jpg")
